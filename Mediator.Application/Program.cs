@@ -13,6 +13,7 @@ builder.Services
 
 WebApplication app = builder.Build();
 
+#region endpoints
 app.MapGet("/", () => "Hello from Mediator!");
 
 app.MapGet(pattern: "/order/{id:guid}",
@@ -30,5 +31,6 @@ app.MapPost(pattern: "/order",
         _ = await handler.HandleAsync(command);
         return TypedResults.Created<CreateOrderResponse>("", null);   // not a real POST implmentation
     });
+#endregion endpoints
 
 app.Run();
