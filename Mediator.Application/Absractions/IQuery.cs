@@ -1,7 +1,7 @@
 ﻿
 namespace Mediator.Application.Absractions;
 
-public interface IQuery
+public interface IQuery<TResponse>
 {
 
 }

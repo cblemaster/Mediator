@@ -1,7 +1,7 @@
 ﻿
 namespace Mediator.Application.Absractions;
 
-public interface ICommand
+public interface ICommand<TResponse>
 {
 
 }
