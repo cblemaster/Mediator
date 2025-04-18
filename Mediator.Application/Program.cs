@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+// register handlers as scoped services
 builder.Services
     .AddScoped<ICommandHandler<CreateOrderCommand, CreateOrderResponse>, CreateOrderHandler>()
     .AddScoped<IQueryHandler<GetOrderQuery, GetOrderResponse>, GetOrderHandler>();
@@ -18,8 +19,8 @@ app.MapGet(pattern: "/order/{id:guid}",
     handler: async Task<Results<NotFound, Ok<GetOrderResponse>>> (Guid id, IQueryHandler<GetOrderQuery,
     GetOrderResponse> handler) =>
     {
-        GetOrderQuery query = new(id);
-        return TypedResults.Ok(await handler.HandleAsync(query));
+        GetOrderQuery query = new(id);  // http GET expects no body, so instantiating the query object here
+        return TypedResults.Ok(await handler.HandleAsync(query));   // not a real GET implmentation
     });
 
 app.MapPost(pattern: "/order",
@@ -27,7 +28,7 @@ app.MapPost(pattern: "/order",
     ICommandHandler<CreateOrderCommand, CreateOrderResponse> handler) =>
     {
         _ = await handler.HandleAsync(command);
-        return TypedResults.Created<CreateOrderResponse>("", null);
+        return TypedResults.Created<CreateOrderResponse>("", null);   // not a real POST implmentation
     });
 
 app.Run();
