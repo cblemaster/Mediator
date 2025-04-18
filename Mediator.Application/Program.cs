@@ -19,14 +19,14 @@ app.MapGet(pattern: "/order/{id:guid}",
     GetOrderResponse> handler) =>
     {
         GetOrderQuery query = new(id);
-        return TypedResults.Ok(await handler.Handle(query));
+        return TypedResults.Ok(await handler.HandleAsync(query));
     });
 
 app.MapPost(pattern: "/order",
     handler: async Task<Results<BadRequest, Created<CreateOrderResponse>>> (CreateOrderCommand command,
     ICommandHandler<CreateOrderCommand, CreateOrderResponse> handler) =>
     {
-        _ = await handler.Handle(command);
+        _ = await handler.HandleAsync(command);
         return TypedResults.Created<CreateOrderResponse>("", null);
     });
 
