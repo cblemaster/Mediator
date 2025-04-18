@@ -8,7 +8,8 @@
 ### Built with
 + .NET 9, C# 13
 ### Features / rules
-+ Mock query implementation
-+ Mock command implementation
++ Get order, a mock query implementation
++ Create order, a mock command implementation
 ### Improvement opportunities
-+ TBD
++ Keep .NET version current
+
